@@ -16,6 +16,7 @@
 
 #include "tftspi.h"
 #include "tft.h"
+#include "touch.h"
 #include "spiffs_vfs.h"
 
 #ifdef CONFIG_EXAMPLE_USE_WIFI
@@ -24,10 +25,13 @@
 #include "freertos/event_groups.h"
 #include "esp_sntp.h"
 #include "esp_log.h"
-#include "nvs_flash/include/nvs_flash.h"
+#include "nvs_flash.h"
 
 #endif
 
+
+#define TEST_TOUCH
+#undef  CONFIG_EXAMPLE_USE_WIFI
 
 // ==========================================================
 // Define which spi bus to use TFT_VSPI_HOST or TFT_HSPI_HOST
@@ -187,8 +191,8 @@ static void _checkTime()
 static int _checkTouch()
 {
 	int tx, ty;
-	if (TFT_read_touch(&tx, &ty, 0)) {
-		while (TFT_read_touch(&tx, &ty, 1)) {
+	if (TS_get_touch(&tx, &ty, 0)) {
+		while (TS_get_touch(&tx, &ty, 1)) {
 			vTaskDelay(20 / portTICK_RATE_MS);
 		}
 		return 1;
@@ -958,7 +962,7 @@ static void touch_demo()
 	ltx = -9999;
 	lty = -999;
 	while (1) {
-		if (TFT_read_touch(&tx, &ty, 0)) {
+		if (TS_get_touch(&tx, &ty, 0)) {
 			// Touched
 			if (((tx >= tft_dispWin.x1) && (tx <= tft_dispWin.x2)) &&
 				((ty >= tft_dispWin.y1) && (ty <= tft_dispWin.y2))) {
@@ -1083,6 +1087,7 @@ void tft_demo() {
 
 		disp_header("Welcome to ESP32");
 
+#ifndef TEST_TOUCH
 		test_times();
 		font_demo();
 		line_demo();
@@ -1095,6 +1100,7 @@ void tft_demo() {
 		poly_demo();
 		pixel_demo();
 		disp_images();
+#endif
 		touch_demo();
 
 		_demo_pass++;
@@ -1374,7 +1380,8 @@ void app_main()
 	TFT_setFont(DEFAULT_FONT, NULL);
 	TFT_resetclipwin();
 
-#ifdef CONFIG_EXAMPLE_USE_WIFI
+#ifndef TEST_TOUCH
+ #ifdef CONFIG_EXAMPLE_USE_WIFI
 
     ESP_ERROR_CHECK( nvs_flash_init() );
 
@@ -1409,7 +1416,7 @@ void app_main()
     	update_header(NULL, "");
     	Wait(-2000);
     }
-#endif
+ #endif  // CONFIG_EXAMPLE_USE_WIFI
 
 	disp_header("File system INIT");
     tft_fg = TFT_CYAN;
@@ -1431,4 +1438,14 @@ void app_main()
     // Run demo
     //=========
 	tft_demo();
+#else
+   uint8_t rot = LANDSCAPE_FLIP; // PORTRAIT_FLIP;  //  LANDSCAPE; // PORTRAIT;  // LANDSCAPE_FLIP;
+
+   TFT_setRotation( rot );
+   TFT_resetclipwin();
+   disp_header( "TOUCH DEMO" );
+
+   TS_setRotation( rot );
+   TS_test_touch();
+#endif
 }

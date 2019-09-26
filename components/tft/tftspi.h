@@ -7,20 +7,7 @@
 #ifndef _TFTSPI_H_
 #define _TFTSPI_H_
 
-#include "tftspi.h"
-#include "spi_master_lobo.h"
-#include "sdkconfig.h"
-#include "stmpe610.h"
-
-#define TOUCH_TYPE_NONE		0
-#define TOUCH_TYPE_XPT2046	1
-#define TOUCH_TYPE_STMPE610	2
-
-#define TP_CALX_XPT2046		7472920
-#define TP_CALY_XPT2046		122224794
-
-#define TP_CALX_STMPE610	21368532
-#define TP_CALY_STMPE610	11800144
+#include "spi_master_lobo.h"        // spi_lobo_device_handle_t
 
 // === Screen tft_orientation constants ===
 #define PORTRAIT	0
@@ -193,9 +180,6 @@
 
 #define PIN_BCKL_ON  0  	// GPIO value for backlight ON
 #define PIN_BCKL_OFF 1  	// GPIO value for backlight OFF
-// --------------------------------------------------------------
-
-#define USE_TOUCH CONFIG_TFT_TOUCH_CONTROLLER
 
 // #######################################################################
 // Default display width (smaller dimension) and height (larger dimension)
@@ -234,9 +218,8 @@ extern int tft_height;
 // ==== Display type, DISP_TYPE_ILI9488 or DISP_TYPE_ILI9341 ====
 extern uint8_t tft_disp_type;
 
-// ==== Spi device handles for display and touch screen =========
+// ==== Spi device handles for display =========
 extern spi_lobo_device_handle_t tft_disp_spi;
-extern spi_lobo_device_handle_t tft_ts_spi;
 
 // ##############################################################
 
@@ -655,7 +638,6 @@ void send_data(int x1, int y1, int x2, int y2, uint32_t len, color_t *buf);
 void TFT_pushColorRep(int x1, int y1, int x2, int y2, color_t data, uint32_t len);
 int read_data(int x1, int y1, int x2, int y2, int len, uint8_t *buf, uint8_t set_sp);
 color_t readPixel(int16_t x, int16_t y);
-int touch_get_data(uint8_t type);
 
 
 // Deactivate display's CS line
@@ -691,15 +673,8 @@ void TFT_PinsInit();
 //======================
 void TFT_display_init();
 
-//===================
-void stmpe610_Init();
-
-//============================================================
-int stmpe610_get_touch(uint16_t *x, uint16_t *y, uint16_t *z);
-
-//========================
-uint32_t stmpe610_getID();
-
 // ===============================================================================
+
+void IRAM_ATTR spi_transfer_start( spi_lobo_device_handle_t spi_dev, int wrbits, int rdbits );
 
 #endif

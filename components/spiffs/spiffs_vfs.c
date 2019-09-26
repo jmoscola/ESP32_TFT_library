@@ -24,6 +24,7 @@
 #include "esp_vfs.h"
 #include "esp_attr.h"
 #include <errno.h>
+#include "esp_partition.h"
 
 #include <spiffs_vfs.h>
 #include <spiffs.h>
@@ -32,7 +33,6 @@
 #include "list.h"
 #include <sys/fcntl.h>
 #include <sys/dirent.h>
-#include "sdkconfig.h"
 
 
 #ifdef PATH_MAX
@@ -728,8 +728,17 @@ int spiffs_mount() {
 
     ESP_LOGI(tag, "Mounting SPIFFS files system");
 
+#if 1
+   // Find the partition map in the partition table
+   const esp_partition_t *partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, "storage");
+   assert(partition != NULL);
+
+   cfg.phys_addr        = partition->address;
+   cfg.phys_size        = partition->size;
+#else
     cfg.phys_addr 		 = CONFIG_SPIFFS_BASE_ADDR;
     cfg.phys_size 		 = CONFIG_SPIFFS_SIZE;
+#endif
     cfg.phys_erase_block = SPIFFS_ERASE_SIZE;
     cfg.log_page_size    = CONFIG_SPIFFS_LOG_PAGE_SIZE;
     cfg.log_block_size   = CONFIG_SPIFFS_LOG_BLOCK_SIZE;

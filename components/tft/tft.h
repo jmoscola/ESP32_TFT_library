@@ -56,8 +56,6 @@ extern Font tft_cfont;					// Current font structure
 extern int	tft_x;					// X position of the next character after TFT_print() function
 extern int	tft_y;					// Y position of the next character after TFT_print() function
 
-extern uint32_t tft_tp_calx;			// touch screen X calibration constant
-extern uint32_t tft_tp_caly;			// touch screen Y calibration constant
 // =========================================================================================
 
 
@@ -643,23 +641,6 @@ void TFT_jpg_image(int x, int y, uint8_t scale, char *fname, uint8_t *buf, int s
 int TFT_bmp_image(int x, int y, uint8_t scale, char *fname, uint8_t *imgbuf, int size);
 
 /*
- * Get the touch panel coordinates.
- * The coordinates are adjusted to screen tft_orientation if raw=0
- *
- * Params:
- * 		x: pointer to X coordinate
- * 		y: pointer to Y coordinate
- * 	  raw: if 0 returns calibrated screen coordinates; if 1 returns raw touch controller coordinates
- *
- * Returns:
- * 		0 if touch panel is not touched; x=y=0
- * 		1 if touch panel is touched; x&y are the valid coordinates
- */
-//----------------------------------------------
-int TFT_read_touch(int *x, int* y, uint8_t raw);
-
-
-/*
  * Compile font c source file to .fnt file
  * which can be used in TFT_setFont() function to select external font
  * Created file have the same name as source file and extension .fnt
@@ -681,8 +662,8 @@ int compile_font_file(char *fontfile, uint8_t dbg);
  */
 void getFontCharacters(uint8_t *buf);
 
-#endif
-
 #ifdef __cplusplus
 }
+#endif
+
 #endif
