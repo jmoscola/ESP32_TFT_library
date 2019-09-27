@@ -21,7 +21,7 @@
 // Spi device handles for touch screen
 spi_lobo_device_handle_t tft_ts_spi = NULL;
 
-int tp_orientation = PORTRAIT;
+int ts_orientation = PORTRAIT;
 
 //----------------------------------------------------------
 //
@@ -29,7 +29,7 @@ int tp_orientation = PORTRAIT;
 
 void TS_setRotation( uint8_t rot )
 {
-   tp_orientation = rot % 4;
+   ts_orientation = rot % 4;
 }
 
 //----------------------------------------------------------
@@ -49,16 +49,16 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
    int ts_x = 0, ts_y = 0;    // touch sensor coordinates
 
  #if USE_TOUCH == TOUCH_TYPE_XPT2046
-   uint32_t tft_tp_calx = TS_CALX_XPT2046;
-   uint32_t tft_tp_caly = TS_CALY_XPT2046;
+   uint32_t tft_ts_calx = TS_CALX_XPT2046;
+   uint32_t tft_ts_caly = TS_CALY_XPT2046;
    result = xpt2046_get_touch( &ts_x, &ts_y );
    if( result == 0 )
    {
       return 0;
    }
  #elif USE_TOUCH == TOUCH_TYPE_STMPE610
-   uint32_t tft_tp_calx = TS_CALX_STMPE610;
-   uint32_t tft_tp_caly = TS_CALY_STMPE610;
+   uint32_t tft_ts_calx = TS_CALX_STMPE610;
+   uint32_t tft_ts_caly = TS_CALY_STMPE610;
    uint16_t Xx, Yy, Z = 0;
    result = stmpe610_get_touch( &Xx, &Yy, &Z );
    if( result == 0 )
@@ -80,10 +80,10 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
    }
 
    // Calibrate the result
-   int xleft   = ( tft_tp_calx >> 16 ) & 0x3FFF;
-   int xright  = tft_tp_calx & 0x3FFF;
-   int ytop    = ( tft_tp_caly >> 16 ) & 0x3FFF;
-   int ybottom = tft_tp_caly & 0x3FFF;
+   int xleft   = ( tft_ts_calx >> 16 ) & 0x3FFF;
+   int xright  = tft_ts_calx & 0x3FFF;
+   int ytop    = ( tft_ts_caly >> 16 ) & 0x3FFF;
+   int ybottom = tft_ts_caly & 0x3FFF;
 
    if( ( ( xright - xleft ) <= 0 ) || ( ( ybottom - ytop ) <= 0 ) )
    {
@@ -114,14 +114,14 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
    ts_x = ( ( ts_x - xleft ) * ts_width ) / ( xright - xleft );
    ts_y = ( ( ts_y - ytop ) * ts_height ) / ( ybottom - ytop );
 
-   printf( "ts_w=%d, ts_h=%d, ts_x=%d, ts_y=%d\n", ts_width, ts_height, ts_x, ts_y );
+//   printf( "ts_w=%d, ts_h=%d, ts_x=%d, ts_y=%d\n", ts_width, ts_height, ts_x, ts_y );
 
    if( ts_x < 0 ) ts_x = 0;
    if( ts_x > ts_width - 1 ) ts_x = ts_width - 1;
    if( ts_y < 0 ) ts_y = 0;
    if( ts_y > ts_height - 1 ) ts_y = ts_height - 1;
 
-   switch( tp_orientation )
+   switch( ts_orientation )
    {
       // 2019-09-25  AWe modified
       // same as STMPE610, but ts_height and ts_width swapped
@@ -163,7 +163,7 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
    if( ts_y < 0 ) ts_y = 0;
    if( ts_y > ts_height - 1 ) ts_y = ts_height - 1;
 
-   switch( tp_orientation )
+   switch( ts_orientation )
    {
       case PORTRAIT:                   // 0
          *x = ts_x;

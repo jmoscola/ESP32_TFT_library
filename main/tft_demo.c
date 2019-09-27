@@ -29,9 +29,19 @@
 
 #endif
 
+//==================================================================================
+// configuration for testing the touch sensor
 
-#define TEST_TOUCH
-#undef  CONFIG_EXAMPLE_USE_WIFI
+// #define DEBUG_TOUCH
+// #define TEST_TOUCH
+
+#ifdef DEBUG_TOUCH
+  #define SKIP_TFT_TESTS
+  #undef  TEST_TOUCH
+  #undef  CONFIG_EXAMPLE_USE_WIFI
+#endif
+
+#define DEFAULT_TFT_ORIENTATION PORTRAIT
 
 // ==========================================================
 // Define which spi bus to use TFT_VSPI_HOST or TFT_HSPI_HOST
@@ -1032,12 +1042,14 @@ void tft_demo() {
             sprintf(dtype, "Unknown");
     }
     
-    uint8_t disp_rot = PORTRAIT;
+   uint8_t disp_rot = DEFAULT_TFT_ORIENTATION;
+
 	_demo_pass = 0;
 	tft_gray_scale = 0;
 	doprint = 1;
 
 	TFT_setRotation(disp_rot);
+   TS_setRotation( disp_rot );
 	disp_header("ESP32 TFT DEMO");
 	TFT_setFont(COMIC24_FONT, NULL);
 	int tempy = TFT_getfontheight() + 4;
@@ -1055,6 +1067,7 @@ void tft_demo() {
 	Wait(4000);
 
 	while (1) {
+#ifndef DEBUG_TOUCH
 		if (run_gs_demo) {
 			if (_demo_pass == 8) doprint = 0;
 			// Change gray scale mode on every 2nd pass
@@ -1063,6 +1076,7 @@ void tft_demo() {
 			if ((_demo_pass % 2) == 0) {
 				tft_bg = TFT_BLACK;
 				TFT_setRotation(disp_rot);
+				TS_setRotation( disp_rot );
 				disp_rot++;
 				disp_rot &= 3;
 			}
@@ -1072,6 +1086,7 @@ void tft_demo() {
 			// change display rotation
 			tft_bg = TFT_BLACK;
 			TFT_setRotation(disp_rot);
+			TS_setRotation( disp_rot );
 			disp_rot++;
 			disp_rot &= 3;
 		}
@@ -1086,8 +1101,9 @@ void tft_demo() {
 		}
 
 		disp_header("Welcome to ESP32");
+#endif
 
-#ifndef TEST_TOUCH
+#ifndef SKIP_TFT_TESTS
 		test_times();
 		font_demo();
 		line_demo();
@@ -1375,8 +1391,8 @@ void app_main()
 	tft_font_transparent = 0;
 	tft_font_forceFixed = 0;
 	tft_gray_scale = 0;
-    TFT_setGammaCurve(DEFAULT_GAMMA_CURVE);
-	TFT_setRotation(PORTRAIT);
+	TFT_setGammaCurve(DEFAULT_GAMMA_CURVE);
+	TFT_setRotation( DEFAULT_TFT_ORIENTATION );
 	TFT_setFont(DEFAULT_FONT, NULL);
 	TFT_resetclipwin();
 

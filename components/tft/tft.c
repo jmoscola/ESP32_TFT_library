@@ -75,9 +75,6 @@ float tft_angleOffset = DEFAULT_ANGLE_OFFSET;
 int	tft_x = 0;
 int	tft_y = 0;
 
-uint32_t tft_tp_calx = 7472920;
-uint32_t tft_tp_caly = 122224794;
-
 dispWin_t tft_dispWin = {
   .x1 = 0,
   .y1 = 0,

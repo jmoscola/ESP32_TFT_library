@@ -8,6 +8,10 @@
 #include <stdint.h>
 #include "touch.h"
 
+#define TS_CALX_STMPE610   ( (  326 << 16 ) + 3796 )  // 0x1460ED4  0x0146 0x0ED4    326  3796
+#define TS_CALY_STMPE610   ( (  180 << 16 ) + 3664 )  // 0xB40E50   0x00B4 0x0E50    180  3664
+
+//============================================================
 
 #define STMPE610_SPI_MODE              1
 

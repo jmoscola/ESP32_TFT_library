@@ -36,6 +36,8 @@ static int IRAM_ATTR xpt2046_get_data( uint8_t type )
    return res;
 }
 
+#if 1
+// loboris implementation
 //-------------------------------------------------------
 static int xpt2046_read_data( uint8_t type, int samples )
 {
@@ -109,6 +111,40 @@ static int xpt2046_read_data( uint8_t type, int samples )
 }
 
 //-----------------------------------------------
+// the orignal loboris code  read x from register 0sD0
+
+int xpt2046_get_touch( int *x, int* y )
+{
+   int res = 0, result = -1;
+   if( spi_lobo_device_select( tft_ts_spi, 0 ) != ESP_OK ) return 0;
+
+   result = xpt2046_read_data( 0xB0, 3 ); // Z; pressure; touch detect
+   if( result <= 250 ) goto exit;
+
+   // touch panel pressed
+   result = xpt2046_read_data( 0x90, 10 );
+   if( result < 0 )  goto exit;
+
+   *x = result;
+
+   result = xpt2046_read_data( 0xD0, 10 );
+   if( result < 0 )  goto exit;
+
+   *y = result;
+   res = 1;
+
+   printf( "res=%d    x=%d, y=%d ", res, *x, *y );
+   printf( "\n" );
+
+exit:
+   spi_lobo_device_deselect( tft_ts_spi );
+
+   return res;
+}
+
+#else
+// stoffregen implementation
+//-----------------------------------------------
 
 static int besttwoavg( int x, int y, int z )
 {
@@ -168,14 +204,15 @@ int xpt2046_get_touch( int *x, int* y )
    *x = besttwoavg( data[0], data[2], data[4] );
    *y = besttwoavg( data[1], data[3], data[5] );
 
-   printf( "    z1=%d,z2=%d  ", z1, z2 );
-   printf( "p=%d,  %d,%d  %d,%d  %d,%d", zraw,
-            data[0], data[1], data[2], data[3], data[4], data[5] );
-   printf( "    %d,%d\n", *x, *y);
+//   printf( "    z1=%d,z2=%d  ", z1, z2 );
+//   printf( "p=%d,  %d,%d  %d,%d  %d,%d", zraw,
+//           data[0], data[1], data[2], data[3], data[4], data[5] );
+   printf( "    x=%d, y=%d ", *x, *y );
+//   printf( "\n" );
 
    return 1;
 }
-
+#endif
 //-----------------------------------------------
 
 void xpt2046_test_touch()
