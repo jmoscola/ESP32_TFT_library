@@ -199,7 +199,7 @@ When you are ready to incorporate it into your existing project, it is recommend
 
 ```shell
 mkdir -p externals
-git submodule add https://github.com/jeremyjh/ESP32_TFT_library.git externals/ESP32_TFT_library
+git submodule add https://github.com/jmoscola/ESP32_TFT_library.git externals/ESP32_TFT_library
 ```
 
 In your project's root CMakeLists.txt add the components folder to `EXTRA_COMPONENT_DIRS` - make sure this is before the project() config e.g.
@@ -235,7 +235,7 @@ idf_component_register(
 
 Clone the repository to your esp folder (same level as esp-idf, as explained [in instructions](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html)).
 
-`git clone https://github.com/jeremyjh/ESP32_TFT_library.git`
+`git clone https://github.com/jmoscola/ESP32_TFT_library.git`
 
 Execute `idf.py menuconfig` and configure your Serial flash config and other settings. Included *sdkconfig.defaults* sets some defaults to be used.
 
