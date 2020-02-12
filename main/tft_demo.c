@@ -17,14 +17,14 @@
 #include "tftspi.h"
 #include "tft.h"
 #include "touch.h"
-#include "spiffs_vfs.h"
+#include "esp_spiffs.h"
+#include "esp_log.h"
 
 #ifdef CONFIG_EXAMPLE_USE_WIFI
 
 #include "esp_wifi.h"
 #include "freertos/event_groups.h"
 #include "esp_sntp.h"
-#include "esp_log.h"
 #include "nvs_flash.h"
 
 #endif
@@ -57,13 +57,12 @@ static char tmp_buff[64];
 static time_t time_now, time_last = 0;
 static const char *file_fonts[3] = {"/spiffs/fonts/DotMatrix_M.fon", "/spiffs/fonts/Ubuntu.fon", "/spiffs/fonts/Grotesk24x48.fon"};
 
+
 #define GDEMO_TIME 1000
 #define GDEMO_INFO_TIME 5000
 
 //==================================================================================
 #ifdef CONFIG_EXAMPLE_USE_WIFI
-
-static const char tag[] = "[TFT Demo]";
 
 /* FreeRTOS event group to signal when we are connected & ready to make a request */
 static EventGroupHandle_t wifi_event_group;
@@ -388,20 +387,20 @@ static void disp_images() {
 
 	disp_header("JPEG IMAGES");
 
-	if (spiffs_is_mounted) {
+	if (esp_spiffs_mounted("storage")) {
 		// ** Show scaled (1/8, 1/4, 1/2 size) JPG images
-		TFT_jpg_image(CENTER, CENTER, 3, SPIFFS_BASE_PATH"/images/test1.jpg", NULL, 0);
+		TFT_jpg_image(CENTER, CENTER, 3, "/spiffs/images/test1.jpg", NULL, 0);
 		Wait(500);
 
-		TFT_jpg_image(CENTER, CENTER, 2, SPIFFS_BASE_PATH"/images/test2.jpg", NULL, 0);
+		TFT_jpg_image(CENTER, CENTER, 2, "/spiffs/images/test2.jpg", NULL, 0);
 		Wait(500);
 
-		TFT_jpg_image(CENTER, CENTER, 1, SPIFFS_BASE_PATH"/images/test4.jpg", NULL, 0);
+		TFT_jpg_image(CENTER, CENTER, 1, "/spiffs/images/test4.jpg", NULL, 0);
 		Wait(500);
 
 		// ** Show full size JPG image
 		tstart = clock();
-		TFT_jpg_image(CENTER, CENTER, 0, SPIFFS_BASE_PATH"/images/test3.jpg", NULL, 0);
+		TFT_jpg_image(CENTER, CENTER, 0, "/spiffs/images/test3.jpg", NULL, 0);
 		tstart = clock() - tstart;
 		if (doprint) printf("       JPG Decode time: %u ms\r\n", tstart);
 		sprintf(tmp_buff, "Decode time: %u ms", tstart);
@@ -412,7 +411,7 @@ static void disp_images() {
 		update_header("BMP IMAGE", "");
 		for (int scale=5; scale >= 0; scale--) {
 			tstart = clock();
-			TFT_bmp_image(CENTER, CENTER, scale, SPIFFS_BASE_PATH"/images/tiger.bmp", NULL, 0);
+			TFT_bmp_image(CENTER, CENTER, scale, "/spiffs/images/tiger.bmp", NULL, 0);
 			tstart = clock() - tstart;
 			if (doprint) printf("    BMP time, scale: %d: %u ms\r\n", scale, tstart);
 			sprintf(tmp_buff, "Decode time: %u ms", tstart);
@@ -448,7 +447,7 @@ static void font_demo()
 	update_header(NULL, tmp_buff);
 	Wait(-GDEMO_INFO_TIME);
 
-	if (spiffs_is_mounted) {
+	if (esp_spiffs_mounted("storage")) {
 		disp_header("FONT FROM FILE DEMO");
 
 		tft_text_wrap = 1;
@@ -1438,9 +1437,18 @@ void app_main()
     tft_fg = TFT_CYAN;
 	TFT_print("Initializing SPIFFS...", CENTER, CENTER);
     // ==== Initialize the file system ====
+    
+    const esp_vfs_spiffs_conf_t conf = {
+      .base_path = "/spiffs",
+      .partition_label = "storage", // NULL
+      .max_files = 5,
+      .format_if_mount_failed = false
+    };
+    
+    
     printf("\r\n\n");
-	vfs_spiffs_register();
-    if (!spiffs_is_mounted) {
+	esp_vfs_spiffs_register(&conf);
+    if (!esp_spiffs_mounted(conf.partition_label)) {
     	tft_fg = TFT_RED;
     	TFT_print("SPIFFS not mounted !", CENTER, LASTY+TFT_getfontheight()+2);
     }
