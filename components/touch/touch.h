@@ -23,7 +23,7 @@ extern "C" {
 
 // --------------------------------------------------------------
 
-#define USE_TOUCH CONFIG_TFT_TOUCH_CONTROLLER
+//#define USE_TOUCH CONFIG_TFT_TOUCH_CONTROLLER
 
 //----------------------------------------------------------
 //
