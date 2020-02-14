@@ -139,7 +139,7 @@ Please **analyze it** to learn how to use the various library functions.
 
 ---
 
-### Connecting the display
+### Connecting the Display
 
 | ESP32 pin | Display module | Notes |
 | - | - | - |
@@ -409,8 +409,8 @@ Send color buffer time: 228 us (240 pixels)
 
 ### Tested on
 
-ESP32-WROVER-KIT v3, ST7789V controller, 240x320
-**and**
+ESP32-WROVER-KIT v3, ST7789V controller, 240x320  
+**and**  
 ESP32-WROVER-KIT v4.1, ILI9341 controller, 240x320
 ![Tested on](https://raw.githubusercontent.com/loboris/MicroPython_ESP32_psRAM_LoBo/master/Documents/disp_wrower-kit.jpg)
 
