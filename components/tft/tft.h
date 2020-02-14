@@ -1,7 +1,7 @@
 /*
  * High level TFT functions
  * Author:  LoBo 04/2017, https://github/loboris
- * 
+ *
  */
 
 #ifndef _TFT_H_
@@ -16,22 +16,22 @@ extern "C" {
 #include "tftspi.h"
 
 typedef struct {
-	uint16_t        x1;
-	uint16_t        y1;
-	uint16_t        x2;
-	uint16_t        y2;
+    uint16_t        x1;
+    uint16_t        y1;
+    uint16_t        x2;
+    uint16_t        y2;
 } dispWin_t;
 
 typedef struct {
-	uint8_t 	*font;
-	uint8_t 	x_size;
-	uint8_t 	y_size;
-	uint8_t	    offset;
-	uint16_t	numchars;
+    uint8_t 	*font;
+    uint8_t 	x_size;
+    uint8_t 	y_size;
+    uint8_t	    offset;
+    uint16_t	numchars;
     uint16_t	size;
-	uint8_t 	max_x_size;
+    uint8_t 	max_x_size;
     uint8_t     bitmap;
-	color_t     color;
+    color_t     color;
 } Font;
 
 
@@ -136,7 +136,7 @@ extern const color_t TFT_PINK;
 
 /*
  * Draw pixel at given x,y coordinates
- * 
+ *
  * Params:
  *       x: horizontal position
  *       y: vertical position
@@ -144,57 +144,57 @@ extern const color_t TFT_PINK;
  *     sel: if not 0 activate CS before and deactivat after sending pixel data to display
  *          when sending multiple pixels it is faster to activate the CS first,
  *          send all pixels an deactivate CS after all pixela was sent
-*/
+ */
 //-------------------------------------------------------------------
 void TFT_drawPixel(int16_t x, int16_t y, color_t color, uint8_t sel);
 
 /*
  * Read pixel color value from display GRAM at given x,y coordinates
- * 
+ *
  * Params:
  *       x: horizontal position
  *       y: vertical position
- * 
+ *
  * Returns:
  *      pixel color at x,y
-*/
+ */
 //------------------------------------------
 color_t TFT_readPixel(int16_t x, int16_t y);
 
 /*
  * Draw vertical line at given x,y coordinates
- * 
+ *
  * Params:
  *       x: horizontal start position
  *       y: vertical start position
  *       h: line height in pixels
  *   color: line color
-*/
+ */
 //---------------------------------------------------------------------
 void TFT_drawFastVLine(int16_t x, int16_t y, int16_t h, color_t color);
 
 /*
  * Draw horizontal line at given x,y coordinates
- * 
+ *
  * Params:
  *       x: horizontal start position
  *       y: vertical start position
  *       w: line width in pixels
  *   color: line color
-*/
+ */
 //---------------------------------------------------------------------
 void TFT_drawFastHLine(int16_t x, int16_t y, int16_t w, color_t color);
 
 /*
  * Draw line on screen
- * 
+ *
  * Params:
  *       x0: horizontal start position
  *       y0: vertical start position
  *       x1: horizontal end position
  *       y1: vertical end position
  *   color: line color
-*/
+ */
 //-------------------------------------------------------------------------------
 void TFT_drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color);
 
@@ -211,39 +211,39 @@ void TFT_drawLine(int16_t x0, int16_t y0, int16_t x1, int16_t y1, color_t color)
  *     len: length of the line
  *   angle: line angle in degrees
  *   color: line color
-*/
+ */
 //-----------------------------------------------------------------------------------------------------------
 void TFT_drawLineByAngle(uint16_t x, uint16_t y, uint16_t start, uint16_t len, uint16_t angle, color_t color);
 
 /*
  * Fill given rectangular screen region with color
- * 
+ *
  * Params:
  *       x: horizontal rect start position
  *       y: vertical rect start position
  *       w: rectangle width
  *       h: rectangle height
  *   color: fill color
-*/
+ */
 //---------------------------------------------------------------------------
 void TFT_fillRect(int16_t x, int16_t y, int16_t w, int16_t h, color_t color);
 
 /*
  * Draw rectangle on screen
- * 
+ *
  * Params:
  *       x: horizontal rect start position
  *       y: vertical rect start position
  *       w: rectangle width
  *       h: rectangle height
  *   color: rect line color
-*/
+ */
 //------------------------------------------------------------------------------
 void TFT_drawRect(uint16_t x1,uint16_t y1,uint16_t w,uint16_t h, color_t color);
 
 /*
  * Draw rectangle with rounded corners on screen
- * 
+ *
  * Params:
  *       x: horizontal rect start position
  *       y: vertical rect start position
@@ -251,13 +251,13 @@ void TFT_drawRect(uint16_t x1,uint16_t y1,uint16_t w,uint16_t h, color_t color);
  *       h: rectangle height
  *       r: corner radius
  *   color: rectangle color
-*/
+ */
 //----------------------------------------------------------------------------------------------
 void TFT_drawRoundRect(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t r, color_t color);
 
 /*
  * Fill given rectangular screen region with rounded corners with color
- * 
+ *
  * Params:
  *       x: horizontal rect start position
  *       y: vertical rect start position
@@ -265,16 +265,16 @@ void TFT_drawRoundRect(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t r,
  *       h: rectangle height
  *       r: corner radius
  *   color: fill color
-*/
+ */
 //----------------------------------------------------------------------------------------------
 void TFT_fillRoundRect(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t r, color_t color);
 
 /*
  * Fill the whole screen with color
- * 
+ *
  * Params:
  *   color: fill color
-*/
+ */
 //--------------------------------
 void TFT_fillScreen(color_t color);
 
@@ -283,13 +283,13 @@ void TFT_fillScreen(color_t color);
  *
  * Params:
  *   color: fill color
-*/
+ */
 //---------------------------------
 void TFT_fillWindow(color_t color);
 
 /*
  * Draw triangle on screen
- * 
+ *
  * Params:
  *       x0: first triangle point x position
  *       y0: first triangle point y position
@@ -298,13 +298,13 @@ void TFT_fillWindow(color_t color);
  *       x0: third triangle point x position
  *       y0: third triangle point y position
  *   color: triangle color
-*/
+ */
 //-----------------------------------------------------------------------------------------------------------------
 void TFT_drawTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, color_t color);
 
 /*
  * Fill triangular screen region with color
- * 
+ *
  * Params:
  *       x0: first triangle point x position
  *       y0: first triangle point y position
@@ -313,71 +313,71 @@ void TFT_drawTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16
  *       x0: third triangle point x position
  *       y0: third triangle point y position
  *   color: fill color
-*/
+ */
 //-----------------------------------------------------------------------------------------------------------------
 void TFT_fillTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, color_t color);
 
 /*
  * Draw circle on screen
- * 
+ *
  * Params:
  *       x: circle center x position
  *       y: circle center x position
  *       r: circle radius
  *   color: circle color
-*/
+ */
 //-------------------------------------------------------------------
 void TFT_drawCircle(int16_t x, int16_t y, int radius, color_t color);
 
 /*
  * Fill circle on screen with color
- * 
+ *
  * Params:
  *       x: circle center x position
  *       y: circle center x position
  *       r: circle radius
  *   color: circle fill color
-*/
+ */
 //-------------------------------------------------------------------
 void TFT_fillCircle(int16_t x, int16_t y, int radius, color_t color);
 
 /*
  * Draw ellipse on screen
- * 
+ *
  * Params:
  *       x0: ellipse center x position
  *       y0: ellipse center x position
  *       rx: ellipse horizontal radius
  *       ry: ellipse vertical radius
  *   option: drawing options, multiple options can be combined
-                1 (TFT_ELLIPSE_UPPER_RIGHT) draw upper right corner
-                2 (TFT_ELLIPSE_UPPER_LEFT)  draw upper left corner
-                4 (TFT_ELLIPSE_LOWER_LEFT)  draw lower left corner
-                8 (TFT_ELLIPSE_LOWER_RIGHT) draw lower right corner
-             to draw the whole ellipse use option value 15 (1 | 2 | 4 | 8)
- * 
+ 1 (TFT_ELLIPSE_UPPER_RIGHT) draw upper right corner
+ 2 (TFT_ELLIPSE_UPPER_LEFT)  draw upper left corner
+ 4 (TFT_ELLIPSE_LOWER_LEFT)  draw lower left corner
+ 8 (TFT_ELLIPSE_LOWER_RIGHT) draw lower right corner
+ to draw the whole ellipse use option value 15 (1 | 2 | 4 | 8)
+ *
  *   color: circle color
-*/
+ */
 //------------------------------------------------------------------------------------------------------
 void TFT_drawEllipse(uint16_t x0, uint16_t y0, uint16_t rx, uint16_t ry, color_t color, uint8_t option);
 
 /*
  * Fill elliptical region on screen
- * 
+ *
  * Params:
  *       x0: ellipse center x position
  *       y0: ellipse center x position
  *       rx: ellipse horizontal radius
  *       ry: ellipse vertical radius
  *   option: drawing options, multiple options can be combined
-                1 (TFT_ELLIPSE_UPPER_RIGHT) fill upper right corner
-                2 (TFT_ELLIPSE_UPPER_LEFT)  fill upper left corner
-                4 (TFT_ELLIPSE_LOWER_LEFT)  fill lower left corner
-                8 (TFT_ELLIPSE_LOWER_RIGHT) fill lower right corner
-             to fill the whole ellipse use option value 15 (1 | 2 | 4 | 8)
- * 
+ 1 (TFT_ELLIPSE_UPPER_RIGHT) fill upper right corner
+ 2 (TFT_ELLIPSE_UPPER_LEFT)  fill upper left corner
+ 4 (TFT_ELLIPSE_LOWER_LEFT)  fill lower left corner
+ 8 (TFT_ELLIPSE_LOWER_RIGHT) fill lower right corner
+ to fill the whole ellipse use option value 15 (1 | 2 | 4 | 8)
+ *
  *   color: fill color
-*/
+ */
 //------------------------------------------------------------------------------------------------------
 void TFT_fillEllipse(uint16_t x0, uint16_t y0, uint16_t rx, uint16_t ry, color_t color, uint8_t option);
 
@@ -396,7 +396,7 @@ void TFT_fillEllipse(uint16_t x0, uint16_t y0, uint16_t rx, uint16_t ry, color_t
  *       end: arc end angle in degrees
  *     color: arc outline color
  * fillcolor: arc fill color
-*/
+ */
 //----------------------------------------------------------------------------------------------------------------------------
 void TFT_drawArc(uint16_t cx, uint16_t cy, uint16_t r, uint16_t th, float start, float end, color_t color, color_t fillcolor);
 
@@ -413,7 +413,7 @@ void TFT_drawArc(uint16_t cx, uint16_t cy, uint16_t r, uint16_t th, float start,
  *      fill: polygon fill color; if same as color, polygon is not filled
  *       deg: polygon rotation angle; 0 ~ 360
  *        th: thickness of the polygon outline
-*/
+ */
 //--------------------------------------------------------------------------------------------------------------
 void TFT_drawPolygon(int cx, int cy, int sides, int diameter, color_t color, color_t fill, int deg, uint8_t th);
 
@@ -589,7 +589,7 @@ void TFT_clearStringRect(int x, int y, char *str);
 /*
  * Converts the components of a color, as specified by the HSB model,
  * to an equivalent set of values for the default RGB model.
-
+ 
  * The color structure that is returned by HSBtoRGB encodes the value of a color as R, G & B component
  *
  * Params:
@@ -598,7 +598,7 @@ void TFT_clearStringRect(int x, int y, char *str);
  * 		   _sat:	float; 0 ~ 1.0
  *	_brightness:	float; 0 ~ 1.0
  *
-*/
+ */
 //----------------------------------------------------------
 color_t HSBtoRGB(float _hue, float _sat, float _brightness);
 
@@ -639,23 +639,6 @@ void TFT_jpg_image(int x, int y, uint8_t scale, char *fname, uint8_t *buf, int s
  */
 //-------------------------------------------------------------------------------------
 int TFT_bmp_image(int x, int y, uint8_t scale, char *fname, uint8_t *imgbuf, int size);
-
-/*
- * Compile font c source file to .fnt file
- * which can be used in TFT_setFont() function to select external font
- * Created file have the same name as source file and extension .fnt
- *
- * Params:
- *		fontfile: pointer to c source font file name; must have .c extension
- *			 dbg: if set to 1, prints debug information
- *
- * Returns:
- * 		0 on success
- * 		err no on error
- *
- */
-//------------------------------------------------
-int compile_font_file(char *fontfile, uint8_t dbg);
 
 /*
  * Get all font's characters to buffer
