@@ -411,15 +411,15 @@ Send color buffer time: 228 us (240 pixels)
 
 ESP32-WROVER-KIT v3, ST7789V controller, 240x320  
 **and**  
-ESP32-WROVER-KIT v4.1, ILI9341 controller, 240x320
+ESP32-WROVER-KIT v4.1, ILI9341 controller, 240x320  
 ![Tested on](https://raw.githubusercontent.com/loboris/MicroPython_ESP32_psRAM_LoBo/master/Documents/disp_wrower-kit.jpg)
 
-2.4" 240x320 ILI9341 controller with Touch panel from eBay
+2.4" 240x320 ILI9341 controller with Touch panel from eBay  
 ![Tested on](https://raw.githubusercontent.com/loboris/MicroPython_ESP32_psRAM_LoBo/master/Documents/disp_ili9341.jpg)
 
-3.5" 320x480 ILI9844 controller with Touch panel from BuyDisplay
+3.5" 320x480 ILI9844 controller with Touch panel from BuyDisplay  
 ![Tested on](https://raw.githubusercontent.com/loboris/MicroPython_ESP32_psRAM_LoBo/master/Documents/disp_9488.jpg)
 
-1.8" 128x160 ST7735 controller from eBay
+1.8" 128x160 ST7735 controller from eBay  
 ![Tested on](https://raw.githubusercontent.com/loboris/MicroPython_ESP32_psRAM_LoBo/master/Documents/disp_7735.jpg)
 
