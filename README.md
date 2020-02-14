@@ -219,7 +219,7 @@ include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(hello-world)
 ```
 
-In your own components/&lt;my_component&gt;/CMakeLists.txt or main/CMakeLists.txt add `tft`, `touch`, and `spiffs` (if you are using spiffs) as `REQUIRES` e.g.
+In your own components/&lt;my_component&gt;/CMakeLists.txt or main/CMakeLists.txt add `tft`, `touch`, and `spiffs` to your list of `REQUIRES` as shown below. **IMPORTANT NOTE:** If you did not previously have a `REQUIRES` statement, you may now need to add any ESP-IDF components that you're using to the `REQUIRES` list.  For example, if your projects utilizes the ESP-IDF NVS flash component, you'll need to add `nvs` to the `REQUIRES` list as well.  
 
 ```cmake
 file(GLOB SOURCES *.c)
