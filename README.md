@@ -105,7 +105,7 @@ https://docs.espressif.com/projects/esp-idf/en/v4.0-rc/get-started/index.html)
   * **TFT_display_init()**  Perform display initialization sequence. Sets orientation to landscape; clears the screen. SPI interface must already be setup, *tft_disp_type*, *tft_width*, *tft_height* variables must be set.
   * **HSBtoRGB**  Converts the components of a color, as specified by the HSB model to an equivalent set of values for the default RGB model.
   * **TFT_setGammaCurve()** Select one of 4 Gamma curves
-* **compile_font_file**  Function which compiles font c source file to font file which can be used in *TFT_setFont()* function to select external font. Created file have the same name as source file and extension *.fnt*
+* **compile_font_file**  Function which compiles font c source file to font file which can be used in *TFT_setFont()* function to select external font. Created file have the same name as source file and extension *.fon*
 
 
 * **Global variables**
