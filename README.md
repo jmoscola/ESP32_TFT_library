@@ -147,7 +147,7 @@ It is recommended that you first [connect a display](#connecting-the-display) an
 When you are ready to incorporate it into your existing project, it is recommended to:
 
 ```shell
-mkdir -p externals
+mkdir externals
 git submodule add https://github.com/jmoscola/ESP32_TFT_library.git externals/ESP32_TFT_library
 ```
 
@@ -171,7 +171,6 @@ idf_component_register(
         SRCS ${SOURCES}
         INCLUDE_DIRS
           ${CMAKE_CURRENT_LIST_DIR}
-          $ENV{IDF_PATH}/components
         REQUIRES
             tft
             touch
