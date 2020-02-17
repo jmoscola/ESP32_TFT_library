@@ -268,6 +268,8 @@ about the SPIFFS on the ESP32 [here](https://docs.espressif.com/projects/esp-idf
 
 ---
 
+#### Creating a Custom SPIFFS Image for the Demo
+
 If desired, you can prepare a different SPIFFS **image** and flash it to ESP32.
 
 The demo application reserves a 1MB partition for SPIFFS.
