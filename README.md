@@ -49,7 +49,7 @@ https://docs.espressif.com/projects/esp-idf/en/v4.0-rc/get-started/index.html)
     * Strings can be printed at **any angle**. Rotation of the displayed text depends on *tft_font_rotate* variable (0~360)
     * if *font_transparent* variable is set to 1, no background pixels will be printed
     * If the text does not fit the screen/window width it will be clipped ( if *text_wrap=0* ), or continued on next line ( if *text_wrap=1* )
-    * Two special characters are allowed in strings: *\\r* CR (0x0D), clears the display to EOL, *\\n* LF (ox0A), continues to the new line, x=0
+    * Two special characters are allowed in strings: `\\r` CR (0x0D), clears the display to EOL, `\n` LF (ox0A), continues to the new line, x=0
     * Special values can be entered for X position:
       * *CENTER*  centers the text
       * *RIGHT*   right justifies the text horizontally
