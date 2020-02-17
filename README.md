@@ -285,9 +285,7 @@ application.
 
 ---
 
----
-
-**Demo Application Example Output:**
+#### Demo Application Example Output
 
 ```
 
