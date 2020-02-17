@@ -139,66 +139,10 @@ Please **analyze it** to learn how to use the various library functions.
 
 ---
 
-### Connecting the Display
-
-| ESP32 pin | Display module | Notes |
-| - | - | - |
-| Any output pin | MOSI | SPI input on Display module |
-| Any pin | MISO | SPI output from Display module, optional |
-| Any output pin | SCK | SPI clock input on Display module |
-| Any output pin | CS  | SPI CS input on Display module |
-| Any output pin | DC  | DC (data/command) input on Display module |
-| Any output pin | TCS  | Touch panel CS input (if touch panel is used |
-| Any output pin | RST  | **optional**, reset input of the display module, if not used **pullup the reset input** to Vcc |
-| Any output pin | BL  | **optional**, backlight input of the display module, if not used connect to +3.3V (or +5V) |
-| GND | GND  | Power supply ground |
-| 3.3V or +5V | Vcc  | Power supply positive |
-
-**Make sure the display module has 3.3V compatible interface, if not you must use a level shifter!**
-
----
-
-### Running the Demo
-
-To run the demo, attach ILI9341, ILI9488 or ST7735 based display module to ESP32. Default pins used are:
-* mosi: 23
-* miso: 19
-*  sck: 18
-*   CS:  5 (display CS)
-*   DC: 26 (display DC)
-*  TCS: 25 (touch screen CS)
-
-**Custom PINS can be defined in `idf.py menuconfig` in `Component config → TFT Display` menu**
-
----
-
-### Display Kits
-
-Predefined display configurations are available that will set pins, display size, and inversion properly for the specified kit.
-
-Access these through the `idf.py menuconfig` in `Component config → TFT Display`
-
-Configurations are available for:
-
-    "ESP-WROVER-KIT v3 Display (ST7789V)"
-    "ESP-WROVER-KIT v4.1 Display (ILI9341)"
-    "Adafruit TFT Feather Display"
-    "M5Stack TFT Display"
-
----
-
-### Other Config Notes
-
-The touch screen can be enabled in `Component config → TFT Display` as well.
-
-Using `idf.py menuconfig` **select tick rate 1000** ( → Component config → FreeRTOS → Tick rate (Hz) ) to get more accurate timings.
-
----
-
 ### Installing as a Library
 This repository is intended to be installable as a component library using the ESP-IDF 4.0 build system.
 
-It is recommended that you first follow the [demo instructions](#building-the-demo) below to build this repository as a standalone example to validate your hardware and have a basis to learn the library features. 
+It is recommended that you first [connect a display](#connecting-the-display) and then follow the [demo instructions](#building-the-demo) below to build this repository as a standalone example to validate your hardware and have a basis to learn the library features. 
 
 When you are ready to incorporate it into your existing project, it is recommended to:
 
@@ -234,6 +178,70 @@ idf_component_register(
             spiffs
 )
 ```
+
+If you plan to utilize a SPIFFS image for your own application, be sure to specify custom partitions for your design.  You will need a `partitions.csv` file to specify the partition sizes.  Run `idf.py menuconfig` to add this file to your configuration options.  
+
+Additionally, you will need to create a folder to contain the contents of your SPIFFS image.  To generate the SPIFFS image as part of your build process and to subsequently flash the image when flashing your application, add the following line to your  main/CMakeLists.txt.  In this example `storage` specifies the name of the partition as defined in your `partitions.csv` file.  Change it to match your partititon name.  The `../components/spiffs_image` specifies the folder that will be used to genearte the SPIFFS image.
+
+```cmake
+spiffs_create_partition_image(storage ../components/spiffs_image FLASH_IN_PROJECT)
+```
+
+---
+
+### Connecting the Display
+
+| ESP32 pin | Display module | Notes |
+| - | - | - |
+| Any output pin | MOSI | SPI input on Display module |
+| Any pin | MISO | SPI output from Display module, optional |
+| Any output pin | SCK | SPI clock input on Display module |
+| Any output pin | CS  | SPI CS input on Display module |
+| Any output pin | DC  | DC (data/command) input on Display module |
+| Any output pin | TCS  | Touch panel CS input (if touch panel is used |
+| Any output pin | RST  | **optional**, reset input of the display module, if not used **pullup the reset input** to Vcc |
+| Any output pin | BL  | **optional**, backlight input of the display module, if not used connect to +3.3V (or +5V) |
+| GND | GND  | Power supply ground |
+| 3.3V or +5V | Vcc  | Power supply positive |
+
+**Make sure the display module has 3.3V compatible interface, if not you must use a level shifter!**
+
+---
+
+#### Pin Configuration for Demo
+
+To run the demo, attach ILI9341, ILI9488 or ST7735 based display module to ESP32. Default pins used are:
+* mosi: 23
+* miso: 19
+*  sck: 18
+*   CS:  5 (display CS)
+*   DC: 26 (display DC)
+*  TCS: 25 (touch screen CS)
+
+**Custom PINS can be defined in `idf.py menuconfig` in `Component config → TFT Display` menu**
+
+---
+
+#### Display Kits
+
+Predefined display configurations are available that will set pins, display size, and inversion properly for the specified kit.
+
+Access these through the `idf.py menuconfig` in `Component config → TFT Display`
+
+Configurations are available for:
+
+    "ESP-WROVER-KIT v3 Display (ST7789V)"
+    "ESP-WROVER-KIT v4.1 Display (ILI9341)"
+    "Adafruit TFT Feather Display"
+    "M5Stack TFT Display"
+
+---
+
+#### Other Config Notes
+
+The touch screen can be enabled in `Component config → TFT Display` as well.
+
+Using `idf.py menuconfig` **select tick rate 1000** ( → Component config → FreeRTOS → Tick rate (Hz) ) to get more accurate timings.
 
 ---
 
@@ -274,7 +282,6 @@ automatically when you build your project and will get flashed when you flash yo
 application.
 
 ---
-
 
 ---
 
