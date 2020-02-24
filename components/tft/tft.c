@@ -959,54 +959,54 @@ void TFT_drawPolygon(int cx, int cy, int sides, int diameter, color_t color, col
 }
 
 /*
-// Similar to the Polygon function.
-//=====================================================================================
-void TFT_drawStar(int cx, int cy, int diameter, color_t color, bool fill, float factor)
-{
-    cx += tft_dispWin.x1;
-    cy += tft_dispWin.y1;
-    
-    factor = constrain(factor, 1.0, 4.0);
-    uint8_t sides = 5;
-    uint8_t rads = 360 / sides;
-    
-    int Xpoints_O[sides], Ypoints_O[sides], Xpoints_I[sides], Ypoints_I[sides];//Xpoints_T[5], Ypoints_T[5];
-    
-    for(int idx = 0; idx < sides; idx++) {
-        // makes the outer points
-        Xpoints_O[idx] = cx + sin((float)(idx*rads + 72) * deg_to_rad) * diameter;
-        Ypoints_O[idx] = cy + cos((float)(idx*rads + 72) * deg_to_rad) * diameter;
-        // makes the inner points
-        Xpoints_I[idx] = cx + sin((float)(idx*rads + 36) * deg_to_rad) * ((float)(diameter)/factor);
-        // 36 is half of 72, and this will allow the inner and outer points to line up like a triangle.
-        Ypoints_I[idx] = cy + cos((float)(idx*rads + 36) * deg_to_rad) * ((float)(diameter)/factor);
-    }
-    
-    for(int idx = 0; idx < sides; idx++) {
-        if((idx+1) < sides) {
-            if(fill) {// this part below should be self explanatory. It fills in the star.
-                _fillTriangle(cx,cy,Xpoints_I[idx],Ypoints_I[idx],Xpoints_O[idx],Ypoints_O[idx], color);
-                _fillTriangle(cx,cy,Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx+1],Ypoints_I[idx+1], color);
-            }
-            else {
-                _drawLine(Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx+1],Ypoints_I[idx+1], color);
-                _drawLine(Xpoints_I[idx],Ypoints_I[idx],Xpoints_O[idx],Ypoints_O[idx], color);
-            }
-        }
-        else {
-            if(fill) {
-                _fillTriangle(cx,cy,Xpoints_I[0],Ypoints_I[0],Xpoints_O[idx],Ypoints_O[idx], color);
-                _fillTriangle(cx,cy,Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx],Ypoints_I[idx], color);
-            }
-            else {
-                _drawLine(Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx],Ypoints_I[idx], color);
-                _drawLine(Xpoints_I[0],Ypoints_I[0],Xpoints_O[idx],Ypoints_O[idx], color);
-            }
-        }
-    }
-}
-*/
+ // Similar to the Polygon function.
+ //=====================================================================================
+ void TFT_drawStar(int cx, int cy, int diameter, color_t color, bool fill, float factor)
+ {
+ cx += tft_dispWin.x1;
+ cy += tft_dispWin.y1;
  
+ factor = constrain(factor, 1.0, 4.0);
+ uint8_t sides = 5;
+ uint8_t rads = 360 / sides;
+ 
+ int Xpoints_O[sides], Ypoints_O[sides], Xpoints_I[sides], Ypoints_I[sides];//Xpoints_T[5], Ypoints_T[5];
+ 
+ for(int idx = 0; idx < sides; idx++) {
+ // makes the outer points
+ Xpoints_O[idx] = cx + sin((float)(idx*rads + 72) * deg_to_rad) * diameter;
+ Ypoints_O[idx] = cy + cos((float)(idx*rads + 72) * deg_to_rad) * diameter;
+ // makes the inner points
+ Xpoints_I[idx] = cx + sin((float)(idx*rads + 36) * deg_to_rad) * ((float)(diameter)/factor);
+ // 36 is half of 72, and this will allow the inner and outer points to line up like a triangle.
+ Ypoints_I[idx] = cy + cos((float)(idx*rads + 36) * deg_to_rad) * ((float)(diameter)/factor);
+ }
+ 
+ for(int idx = 0; idx < sides; idx++) {
+ if((idx+1) < sides) {
+ if(fill) {// this part below should be self explanatory. It fills in the star.
+ _fillTriangle(cx,cy,Xpoints_I[idx],Ypoints_I[idx],Xpoints_O[idx],Ypoints_O[idx], color);
+ _fillTriangle(cx,cy,Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx+1],Ypoints_I[idx+1], color);
+ }
+ else {
+ _drawLine(Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx+1],Ypoints_I[idx+1], color);
+ _drawLine(Xpoints_I[idx],Ypoints_I[idx],Xpoints_O[idx],Ypoints_O[idx], color);
+ }
+ }
+ else {
+ if(fill) {
+ _fillTriangle(cx,cy,Xpoints_I[0],Ypoints_I[0],Xpoints_O[idx],Ypoints_O[idx], color);
+ _fillTriangle(cx,cy,Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx],Ypoints_I[idx], color);
+ }
+ else {
+ _drawLine(Xpoints_O[idx],Ypoints_O[idx],Xpoints_I[idx],Ypoints_I[idx], color);
+ _drawLine(Xpoints_I[0],Ypoints_I[0],Xpoints_O[idx],Ypoints_O[idx], color);
+ }
+ }
+ }
+ }
+ */
+
 
 // ================ Font and string functions ==================================
 

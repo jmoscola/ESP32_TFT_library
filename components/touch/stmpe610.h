@@ -1,12 +1,15 @@
 /*
-    STMPE610 Touch controller constants
-*/
+ STMPE610 Touch controller constants
+ */
 
-#ifndef _STMPE610_H
-#define _STMPE610_H
+#ifndef _STMPE610_H_
+#define _STMPE610_H_
 
 #include <stdint.h>
-#include "touch.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define TS_CALX_STMPE610   ( (  326 << 16 ) + 3796 )  // 0x1460ED4  0x0146 0x0ED4    326  3796
 #define TS_CALY_STMPE610   ( (  180 << 16 ) + 3664 )  // 0xB40E50   0x00B4 0x0E50    180  3664
@@ -83,4 +86,12 @@ int stmpe610_get_touch( uint16_t *x, uint16_t *y, uint16_t *z );
 //========================
 uint32_t stmpe610_getID();
 
-#endif /* _STMPE610_H */
+
+//========================
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _STMPE610_H_ */
+
+
