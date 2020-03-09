@@ -2,6 +2,10 @@
 #define _TOUCH_H_
 
 #include <stdlib.h>
+#include "stmpe610.h"
+#include "xpt2046.h"
+
+#define TFT_LIB_TOUCH_TAG      "TFT_LIB_TOUCH"
 
 #ifdef __cplusplus
 extern "C" {
@@ -81,7 +85,7 @@ extern spi_lobo_device_handle_t tft_ts_spi;
 
 
 /*
- * Initialize  pins used by display driver
+ * Initialize pins used by display driver
  * ** MUST be executed before SPI interface initialization
  */
 //----------------------------------------------

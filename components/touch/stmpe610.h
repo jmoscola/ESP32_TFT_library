@@ -16,7 +16,7 @@ extern "C" {
 
 //============================================================
 
-#define STMPE610_SPI_MODE              1
+#define STMPE610_SPI_MODE              0
 
 // Identification registers
 #define STMPE610_REG_CHP_ID         0x00 // 16-bit

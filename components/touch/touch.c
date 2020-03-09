@@ -14,6 +14,7 @@
 #include "touch.h"
 #include "xpt2046.h"
 #include "stmpe610.h"
+#include "esp_log.h"
 
 //----------------------------------------------------------
 //
@@ -31,7 +32,9 @@ int ts_orientation = PORTRAIT;
 void TS_PinsInit()
 {
     // Route pins to GPIO control
+    ESP_LOGI(TFT_LIB_TOUCH_TAG, "Initializing Touchscreen Pins");
 #if TOUCH_TYPE
+    ESP_LOGI(TFT_LIB_TOUCH_TAG, "TOUCH_TYPE = %d, PIN_NUM_TCS = %d", TOUCH_TYPE, PIN_NUM_TCS);
     gpio_pad_select_gpio(PIN_NUM_TCS);
     gpio_set_direction(PIN_NUM_TCS, GPIO_MODE_OUTPUT);
 #endif
@@ -127,8 +130,6 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
     ts_x = ( ( ts_x - xleft ) * ts_width ) / ( xright - xleft );
     ts_y = ( ( ts_y - ytop ) * ts_height ) / ( ybottom - ytop );
     
-    //   printf( "ts_w=%d, ts_h=%d, ts_x=%d, ts_y=%d\n", ts_width, ts_height, ts_x, ts_y );
-    
     if( ts_x < 0 ) ts_x = 0;
     if( ts_x > ts_width - 1 ) ts_x = ts_width - 1;
     if( ts_y < 0 ) ts_y = 0;
@@ -158,8 +159,6 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
     }
     
 #elif TOUCH_TYPE == TOUCH_TYPE_STMPE610
-    // 2019-09-25 AWe not changed, not tested
-    
     int ts_width = tft_width;
     int ts_height = tft_height;
     
@@ -178,20 +177,20 @@ int TS_get_touch( int *x, int *y, uint8_t raw )
     
     switch( ts_orientation )
     {
-        case PORTRAIT:                   // 0
+        case PORTRAIT:                   // 0 o.k.
             *x = ts_x;
-            *y = ts_y;
-            break;
-        case LANDSCAPE:                  // 1
-            *x = ts_x;
-            *y = ts_width - ts_x - 1;
-            break;
-        case PORTRAIT_FLIP:              // 2
-            *x = ts_width - ts_x - 1;
             *y = ts_height - ts_y - 1;
             break;
-        case LANDSCAPE_FLIP:             // 3
+        case LANDSCAPE:                  // 1 o.k.
             *x = ts_height - ts_y - 1;
+            *y = ts_width - ts_x - 1;
+            break;
+        case PORTRAIT_FLIP:              // 2 o.k.
+            *x = ts_width - ts_x - 1;
+            *y = ts_y;
+            break;
+        case LANDSCAPE_FLIP:             // 3 o.k.
+            *x = ts_y;
             *y = ts_x;
             break;
     }

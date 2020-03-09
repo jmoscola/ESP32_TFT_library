@@ -29,7 +29,7 @@ int load_file_font(const char * fontfile, int info)
     // Open the file
     FILE *fhndl = fopen(fontfile, "r");
     if (!fhndl) {
-//        sprintf(err_msg, "Error opening font file '%s'", fontfile);
+        //        sprintf(err_msg, "Error opening font file '%s'", fontfile);
         ESP_LOGE("LOAD_FILE_FONT", "Error opening font file '%s'", fontfile);
         err = 1;
         goto exit;
@@ -37,14 +37,14 @@ int load_file_font(const char * fontfile, int info)
     
     // Get file size
     if (stat(fontfile, &sb) != 0) {
-//        sprintf(err_msg, "Error getting font file stats");
+        //        sprintf(err_msg, "Error getting font file stats");
         ESP_LOGE("LOAD_FILE_FONT", "Error getting font file stats");
         err = 2;
         goto exit;
     }
     int fsize = sb.st_size;
     if (fsize < 30) {
-//        sprintf(err_msg, "Error getting font file size");
+        //        sprintf(err_msg, "Error getting font file size");
         ESP_LOGE("LOAD_FILE_FONT", "Error getting font file size");
         err = 3;
         goto exit;
@@ -52,7 +52,7 @@ int load_file_font(const char * fontfile, int info)
     
     userfont = malloc(fsize+4);
     if (userfont == NULL) {
-//        sprintf(err_msg, "Font memory allocation error");
+        //        sprintf(err_msg, "Font memory allocation error");
         ESP_LOGE("LOAD_FILE_FONT", "Font memory allocation error");
         fclose(fhndl);
         err = 4;
@@ -64,7 +64,7 @@ int load_file_font(const char * fontfile, int info)
     fclose(fhndl);
     
     if (read != fsize) {
-//        sprintf(err_msg, "Font read error");
+        //        sprintf(err_msg, "Font read error");
         ESP_LOGE("LOAD_FILE_FONT", "Font read error");
         err = 5;
         goto exit;
@@ -72,7 +72,7 @@ int load_file_font(const char * fontfile, int info)
     
     userfont[read] = 0;
     if (strstr((char *)(userfont+read-8), "RPH_font") == NULL) {
-//        sprintf(err_msg, "Font ID not found");
+        //        sprintf(err_msg, "Font ID not found");
         ESP_LOGE("LOAD_FILE_FONT", "Font ID not found");
         err = 6;
         goto exit;
@@ -123,7 +123,7 @@ int load_file_font(const char * fontfile, int info)
     }
     
     if (size != (read-8)) {
-//        sprintf(err_msg, "Font size error: found %d expected %d)", size, (read-8));
+        //        sprintf(err_msg, "Font size error: found %d expected %d)", size, (read-8));
         ESP_LOGE("LOAD_FILE_FONT", "Font size error: found %d expected %d)", size, (read-8));
         err = 7;
         goto exit;
@@ -131,14 +131,14 @@ int load_file_font(const char * fontfile, int info)
     
     if (info) {
         if (width != 0) {
-//            printf("Fixed width font:\r\n  size: %d  width: %d  height: %d  characters: %d (%d~%d)\n",
-//                   size, width, height, numchar, first, last);
+            //            printf("Fixed width font:\r\n  size: %d  width: %d  height: %d  characters: %d (%d~%d)\n",
+            //                   size, width, height, numchar, first, last);
             ESP_LOGI("LOAD_FILE_FONT", "Fixed width font:\r\n  size: %d  width: %d  height: %d  characters: %d (%d~%d)\n",
                      size, width, height, numchar, first, last);
         }
         else {
-//            printf("Proportional font:\r\n  size: %d  width: %d~%d  height: %d  characters: %d (%d~%d)\n",
-//                   size, pminwidth, pmaxwidth, height, numchar, first, last);
+            //            printf("Proportional font:\r\n  size: %d  width: %d~%d  height: %d  characters: %d (%d~%d)\n",
+            //                   size, pminwidth, pmaxwidth, height, numchar, first, last);
             ESP_LOGI("LOAD_FILE_FONT", "Proportional font:\r\n  size: %d  width: %d~%d  height: %d  characters: %d (%d~%d)\n",
                      size, pminwidth, pmaxwidth, height, numchar, first, last);
         }
@@ -151,7 +151,7 @@ exit:
             userfont = NULL;
         }
         if (info) {
-//            printf("Error: %d [%s]\r\n", err, err_msg);
+            //            printf("Error: %d [%s]\r\n", err, err_msg);
             ESP_LOGE("LOAD_FILE_FONT", "Error: %d [%s]\r\n", err, err_msg);
         }
     }
