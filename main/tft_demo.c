@@ -1269,6 +1269,7 @@ void app_main()
     // === Pins MUST be initialized before SPI interface initialization ===
     // ====================================================================
     TFT_PinsInit();
+    TS_PinsInit();
     
     // ====  CONFIGURE SPI DEVICES(s)  ====================================================================================
     
