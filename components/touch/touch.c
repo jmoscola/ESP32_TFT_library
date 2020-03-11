@@ -34,9 +34,9 @@ void TS_PinsInit()
     // Route pins to GPIO control
     ESP_LOGI(TFT_LIB_TOUCH_TAG, "Initializing Touchscreen Pins");
 #if TOUCH_TYPE
-    ESP_LOGI(TFT_LIB_TOUCH_TAG, "TOUCH_TYPE = %d, PIN_NUM_TCS = %d", TOUCH_TYPE, PIN_NUM_TCS);
-    gpio_pad_select_gpio(PIN_NUM_TCS);
-    gpio_set_direction(PIN_NUM_TCS, GPIO_MODE_OUTPUT);
+    ESP_LOGI(TFT_LIB_TOUCH_TAG, "TOUCH_TYPE = %d, PIN_NUM_TOUCH_CS = %d", TOUCH_TYPE, PIN_NUM_TOUCH_CS);
+    gpio_pad_select_gpio(PIN_NUM_TOUCH_CS);
+    gpio_set_direction(PIN_NUM_TOUCH_CS, GPIO_MODE_OUTPUT);
 #endif
 }
 

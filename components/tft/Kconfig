@@ -120,7 +120,7 @@ config TFT_PIN_NUM_CLK
     If not using a predefined display type, configure the SCK pin here.
 
 config TFT_PIN_NUM_CS
-    int "GPIO for CS (Slave Select)"
+    int "GPIO for CS (TFT Slave Select)"
     default 5
     help
     If not using a predefined display type, configure the CS pin here.
@@ -130,12 +130,6 @@ config TFT_PIN_NUM_DC
     default 26
     help
     If not using a predefined display type, configure the DC pin here.
-
-config TFT_PIN_NUM_TCS
-    int "GPIO for TCS (Touchscreen)"
-    default 25
-    help
-    Optional. If not using a predefined display type, configure the TCS (touch screen) pin here.
 
 config TFT_PIN_NUM_RST
     int "GPIO for Reset"
@@ -148,6 +142,18 @@ config TFT_PIN_NUM_BCKL
     default 0
     help
     Optional. If not using a predefined display type, configure the blacklight pin here.
+
+config TFT_PIN_NUM_TOUCH_CS
+    int "GPIO for CS (Touchscreen Slave Select)"
+    default 25
+    help
+    Optional. If not using a predefined display type, configure the touch screen CS pin here.
+    
+config TFT_PIN_NUM_TOUCH_INT
+    int "GPIO for INT (Touchscreen Interrupt Pin)"
+    default 0
+    help
+    Optional. If not using a predefined display type, configure the touch screen interrupt pin here.
 
 endif
 

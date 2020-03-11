@@ -1275,9 +1275,9 @@ void app_main()
     spi_lobo_device_handle_t spi;
     
     spi_lobo_bus_config_t buscfg={
-        .miso_io_num=PIN_NUM_MISO,                // set SPI MISO pin
-        .mosi_io_num=PIN_NUM_MOSI,                // set SPI MOSI pin
-        .sclk_io_num=PIN_NUM_CLK,                // set SPI CLK pin
+        .miso_io_num=PIN_NUM_MISO,              // set SPI MISO pin
+        .mosi_io_num=PIN_NUM_MOSI,              // set SPI MOSI pin
+        .sclk_io_num=PIN_NUM_CLK,               // set SPI CLK pin
         .quadwp_io_num=-1,
         .quadhd_io_num=-1,
         .max_transfer_sz = 6*1024,
@@ -1294,20 +1294,20 @@ void app_main()
     spi_lobo_device_handle_t tsspi = NULL;
     
     spi_lobo_device_interface_config_t tsdevcfg={
-        .clock_speed_hz=2500000,                //Clock out at 2.5 MHz
-        .mode=0,                                //SPI mode 0
-        .spics_io_num=PIN_NUM_TCS,              //Touch CS pin
-        .spics_ext_io_num=-1,                   //Not using the external CS
-        //.command_bits=8,                        //1 byte command
+        .clock_speed_hz=2500000,                // Clock out at 2.5 MHz
+        .mode=0,                                // SPI mode 0
+        .spics_io_num=PIN_NUM_TOUCH_CS,         // Touch CS pin
+        .spics_ext_io_num=-1,                   // Not using the external CS
+        //.command_bits=8,                      // 1 byte command
     };
 #elif USE_TOUCH == TOUCH_TYPE_STMPE610
     spi_lobo_device_handle_t tsspi = NULL;
     
     spi_lobo_device_interface_config_t tsdevcfg={
-        .clock_speed_hz=1000000,                //Clock out at 1 MHz
-        .mode=STMPE610_SPI_MODE,                //SPI mode 0
-        .spics_io_num=PIN_NUM_TCS,              //Touch CS pin
-        .spics_ext_io_num=-1,                   //Not using the external CS
+        .clock_speed_hz=1000000,                // Clock out at 1 MHz
+        .mode=STMPE610_SPI_MODE,                // SPI mode 0
+        .spics_io_num=PIN_NUM_TOUCH_CS,         // Touch CS pin
+        .spics_ext_io_num=-1,                   // Not using the external CS
         .flags = 0,
     };
 #endif
@@ -1319,9 +1319,9 @@ void app_main()
     printf("\r\n==============================\r\n");
     printf("TFT display DEMO, LoBo 11/2017\r\n");
     printf("==============================\r\n");
-    printf("Pins used: miso=%d, mosi=%d, sck=%d, cs=%d\r\n", PIN_NUM_MISO, PIN_NUM_MOSI, PIN_NUM_CLK, PIN_NUM_CS);
+    printf("Pins used: miso=%d, mosi=%d, sck=%d, cs=%d, dc=%d, rst=%d, bckl=%d\r\n", PIN_NUM_MISO, PIN_NUM_MOSI, PIN_NUM_CLK, PIN_NUM_CS, PIN_NUM_DC, PIN_NUM_RST, PIN_NUM_BCKL);
 #if USE_TOUCH > TOUCH_TYPE_NONE
-    printf(" Touch CS: %d\r\n", PIN_NUM_TCS);
+    printf(" USE_TOUCH=%d, Touch CS: %d\r\n", USE_TOUCH, PIN_NUM_TOUCH_CS);
 #endif
     printf("==============================\r\n\r\n");
     

@@ -34,36 +34,36 @@ extern "C" {
 #if CONFIG_TFT_PREDEFINED_DISPLAY_TYPE == 1
 // ** Set the touch configuration for ESP-WROVER-KIT v3
 // --------------------------------------------------------
-#define TOUCH_TYPE      TOUCH_TYPE_NONE
-#define PIN_NUM_TCS     0       // Touch screen CS pin
+#define TOUCH_TYPE          TOUCH_TYPE_NONE
+#define PIN_NUM_TOUCH_CS    0       // Touch screen CS pin
 // --------------------------------------------------------
 
 #elif CONFIG_TFT_PREDEFINED_DISPLAY_TYPE == 2
 // ** Set the touch configuration for Adafruit TFT Feather
 // ---------------------------------------------------------
-#define TOUCH_TYPE      TOUCH_TYPE_STMPE610
-#define PIN_NUM_TCS     32      // Touch screen CS pin (NOT used if TOUCH_TYPE=0)
+#define TOUCH_TYPE          TOUCH_TYPE_STMPE610
+#define PIN_NUM_TOUCH_CS    32      // Touch screen CS pin (NOT used if TOUCH_TYPE=0)
 // ---------------------------------------------------------
 
 #elif CONFIG_TFT_PREDEFINED_DISPLAY_TYPE == 3
 // ** Set the touch configuration for M5Stack TFT
 // ---------------------------------------------------------
-#define TOUCH_TYPE      TOUCH_TYPE_NONE
-#define PIN_NUM_TCS     0       // Touch screen CS pin (NOT used if TOUCH_TYPE=0)
+#define TOUCH_TYPE          TOUCH_TYPE_NONE
+#define PIN_NUM_TOUCH_CS    0       // Touch screen CS pin (NOT used if TOUCH_TYPE=0)
 // ---------------------------------------------------------
 
 #elif CONFIG_TFT_PREDEFINED_DISPLAY_TYPE == 4
 // ** Set the touch configuration for ESP-WROVER-KIT v4.1
 // --------------------------------------------------------
-#define TOUCH_TYPE      TOUCH_TYPE_NONE
-#define PIN_NUM_TCS     0       // Touch screen CS pin
+#define TOUCH_TYPE          TOUCH_TYPE_NONE
+#define PIN_NUM_TOUCH_CS    0       // Touch screen CS pin
 // --------------------------------------------------------
 
 #else // all other display types
 // ** Set the touch configuration for other boards
 // --------------------------------------------------------
-#define TOUCH_TYPE      CONFIG_TFT_TOUCH_CONTROLLER
-#define PIN_NUM_TCS     CONFIG_TFT_PIN_NUM_TCS
+#define TOUCH_TYPE          CONFIG_TFT_TOUCH_CONTROLLER
+#define PIN_NUM_TOUCH_CS    CONFIG_TFT_PIN_NUM_TOUCH_CS
 // --------------------------------------------------------
 
 #endif  // CONFIG_PREDEFINED_DISPLAY_TYPE
